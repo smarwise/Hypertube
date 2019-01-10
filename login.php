@@ -7,7 +7,9 @@ require_once "config.php";
 $redirecturl = "http://localhost:8080/Hypertube/fb-callback.php";
 $permissions = ['email'];
 $loginurl = $helper->getLoginUrl($redirecturl, $permissions);
-echo $loginurl;
+// echo $loginurl;
+
+$gloginurl = $client->createAuthUrl();
 ?>
 
 <html>
@@ -26,8 +28,8 @@ echo $loginurl;
     <input name="email" placeholder="Email"><br />
     <input name="password" type="password" placeholder="Password"><br />
     <input type="submit" value="Login"><br />
-    <input type="button" onclick="window.location='<?php echo $loginurl ?>';" value="Login with Facebook">
-    <input type="button" value="Login with Facebook">
+    <input type="button" onclick="window.location='<?php echo $loginurl ?>';" value="Login with Facebook"><br />
+    <input type="button" onclick="window.location='<?php echo $gloginurl ?>';" value="Login with Google">
     </form>
     </body>
 </html>
