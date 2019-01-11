@@ -34,13 +34,12 @@ $array = json_decode($result, true);
 $access_token = $array['access_token'];
 $info = file_get_contents('https://api.intra.42.fr/v2/me?access_token=' . $access_token);
 $arr = json_decode($info, true);
-echo "<pre>";
-print_r($arr);
+// echo "<pre>";
+// print_r($arr);
 $_SESSION["id"] = $arr["id"];
 $_SESSION["first_name"] = $arr["first_name"];
 $_SESSION["last_name"] = $arr["last_name"];
 $_SESSION["picture"] = $arr['image_url'];
 $_SESSION["email"] = $arr["email"];
-if ($_SESSION['id'])
-    header('Location: home.php');
+header('Location: home.php');
 ?>
