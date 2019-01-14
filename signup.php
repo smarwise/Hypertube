@@ -232,7 +232,7 @@ input[type=submit]:hover {
 <div id="Sign-up" class="tabcontent">
   <br /><br /><br /><br /><br /><br />
   <div class="container">
-  <form action="/action_page.php">
+  <form action="register.php" method="POST">
     <div class="row">
       <h2 style="text-align:center">Sign-up with Social Media or Manually</h2>
       <div class="vl">
@@ -255,9 +255,10 @@ input[type=submit]:hover {
         <div class="hide-md-lg">
           <p>Or Sign-up manually:</p>
         </div>
-
-        <input type="text" name="username" placeholder="Username" required>
         <input type="email" name="email" placeholder="Email" required>
+        <input type="text" placeholder="First Name" name="first_name" required>
+        <input type="text" placeholder="Last Name" name="last_name" required>
+        <input type="text" name="username" placeholder="Username" required>
         <input type="password" name="password" placeholder="Password" required>
         <input type="submit" value="Sign-up">
       </div>
@@ -299,3 +300,4 @@ document.getElementById("defaultOpen").click();
    
 </body>
 </html>
+
