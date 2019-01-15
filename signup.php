@@ -260,6 +260,7 @@ input[type=submit]:hover {
         <input type="text" placeholder="Last Name" name="last_name" required>
         <input type="text" name="username" placeholder="Username" required>
         <input type="password" name="password" placeholder="Password" required>
+        <input type="password" name="password2" placeholder="Repeat Password" required>
         <input type="submit" value="Sign-up">
       </div>
       

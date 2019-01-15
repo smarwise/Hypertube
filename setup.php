@@ -1,7 +1,7 @@
 <?PHP
 $host = "localhost";
 $username = "root";
-$password = "123456";
+$password = "codecrazy";
 $table = "users";
 $dbname = "hypertube";
 $db = null;

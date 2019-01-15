@@ -4,11 +4,11 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 $db->query("USE ".$dbname);
-if ($_POST['email'] && $_POST['username'] && $_POST['password'] && $_POST['passwd2'])
+if ($_POST['email'] && $_POST['username'] && $_POST['password'] && $_POST['password2'])
 {
     $first_name = $_POST['first_name'];
     $last_name = $_POST['last_name'];
-	if ($_POST['passwd'] != $_POST['passwd2'])
+	if ($_POST['password'] != $_POST['password2'])
 	{
 		header("Location: index.php");
 		echo "<script type='text/javascript'>alert('Password does not match');</script>";
@@ -37,7 +37,7 @@ if ($_POST['email'] && $_POST['username'] && $_POST['password'] && $_POST['passw
 		echo "<script type='text/javascript'>alert('Username is already taken');</script>";
 	 	exit;
 	}
-	$password = $_POST['passwd'];
+	$password = $_POST['password'];
 	if (strlen($password) < 8)
 	{
 		echo "<script type='text/javascript'>alert('Password must be at least 8 characters long');</script>";
@@ -72,7 +72,7 @@ if ($_POST['email'] && $_POST['username'] && $_POST['password'] && $_POST['passw
 	if (mail($recipient_email, $subject, $body, $headers) )
 		echo "<div id='successMessage'>A verification email was sent to <b>" . $email . "</b>, please open your email inbox and click the given link so you can login.</div>";
 	$table = "users";
-	$sql = "INSERT INTO users (name, surname, email, username, passwd, notifications, token) VALUES (:first_name, :last_name, :email, :username, :passwd, :noti, :token)";
+	$sql = "INSERT INTO users (name, surname, email, username, password, notifications, token) VALUES (:first_name, :last_name, :email, :username, :passwd, :noti, :token)";
 	$coolpwd = hash('whirlpool', $password);
 	$noti = "off";
     $stmt= $db->prepare($sql);
