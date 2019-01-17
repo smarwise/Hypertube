@@ -2,6 +2,7 @@
 require_once("setup.php");
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
+$dbname = "hypertube";
 error_reporting(E_ALL);
 $db->query("USE ".$dbname);
 if ($_POST['email'] && $_POST['username'] && $_POST['password'] && $_POST['password2'])
@@ -54,10 +55,10 @@ if ($_POST['email'] && $_POST['username'] && $_POST['password'] && $_POST['passw
 		exit;
 	}     
 	$verificationCode = md5(uniqid("something", true));
-	$verificationLink = "http://localhost:8080/hypertube/login.php?code=" . $verificationCode;
+	$verificationLink = "http://localhost:8080/hypertube/signup.php?code=" . $verificationCode;
 	$htmlStr = "";
 	$htmlStr .= "Hi " . $email . ",<br /><br />";
-	$htmlStr .= "Please click the button below to verify your subscription and have access to the Matcha website.<br /><br /><br />";
+	$htmlStr .= "Please click the button below to verify your account and have access to the Hypertube website.<br /><br /><br />";
 	$htmlStr .= "<a href='{$verificationLink}' target='_blank' style='padding:1em; font-weight:bold; background-color:blue; color:#fff;'>VERIFY EMAIL</a><br /><br /><br />";
 	$htmlStr .= "Kind regards,<br />";
 	$htmlStr .= "<a href='http://localhost:8080/hypertube/' target='_blank'>Hypertube</a><br />";

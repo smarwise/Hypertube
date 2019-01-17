@@ -184,7 +184,7 @@ input[type=submit]:hover {
 <div id="Sign-in" class="tabcontent">
   <br /><br /><br /><br /><br /><br />
   <div class="container">
-  <form action="/action_page.php">
+  <form action="login.php" method="POST">
     <div class="row">
       <h2 style="text-align:center">Sign-in with Social Media or Manually</h2>
       <div class="vl">
@@ -301,4 +301,37 @@ document.getElementById("defaultOpen").click();
    
 </body>
 </html>
+
+<?php
+require_once("setup.php");
+if (isset($_GET['code']))
+{
+  $query = "SELECT id FROM users WHERE token = :tok and verified = :zero";
+  $stmt = $db->prepare( $query );
+  $zero = '0';
+  $code = trim($_GET['code']);
+  $stmt->bindParam(':zero', $zero);
+  $stmt->bindParam(':tok', $code);
+  $stmt->execute();
+  $num = $stmt->rowCount();
+  if ($num > 0)
+  {
+    $query = "UPDATE users set verified = '1' where token = :verification_code";
+    $line = $db->prepare($query);
+    $line->bindParam(':verification_code', $code);
+    if ($line->execute())
+      echo "Your email has been verified. You may now log in.";
+    else
+     {
+				echo "Failed to verify email";
+				exit;
+		 }
+  }
+  else
+   {
+			echo "Verification token is invalid. Please try again.";
+			exit;
+	 }
+}
+?>
 
