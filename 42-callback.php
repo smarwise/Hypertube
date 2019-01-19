@@ -5,6 +5,7 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+require_once "setup.php";
 session_start();
 
 $authorization_code = $_GET['code'];
@@ -36,10 +37,44 @@ $info = file_get_contents('https://api.intra.42.fr/v2/me?access_token=' . $acces
 $arr = json_decode($info, true);
 // echo "<pre>";
 // print_r($arr);
-$_SESSION["id"] = $arr["id"];
-$_SESSION["first_name"] = $arr["first_name"];
-$_SESSION["last_name"] = $arr["last_name"];
-$_SESSION["picture"] = $arr['image_url'];
-$_SESSION["email"] = $arr["email"];
-header('Location: home.php');
+$first_name = $arr["first_name"];
+$last_name = $arr["last_name"];
+$picture = $arr['image_url'];
+$email = $arr["email"];
+$password = "default";
+$verificationCode = "default";
+$query = $db->prepare("SELECT id FROM users WHERE email = :email");
+$query->bindParam(':email', $email);
+$query->execute();
+$num = $query->rowCount();
+if ($num > 0)
+{
+    $row = $query->fetch(PDO::FETCH_ASSOC);
+    $user_id = $row['id'];
+    $_SESSION["logged_in"] = true;
+    $_SESSION['id'] = $user_id;
+    header ('Location: home.php');
+}
+else
+{
+    $sql = "INSERT INTO users (name, surname, email, username, password, token, picture) VALUES (:first_name, :last_name, :email, :username, :passwd, :token, :picture)";
+    $coolpwd = hash('whirlpool', $password);
+    $stmt= $db->prepare($sql);
+    $stmt->bindParam(':first_name', $first_name);
+    $stmt->bindParam('last_name', $last_name);
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':username', $first_name);
+    $stmt->bindParam(':passwd', $coolpwd);
+    $stmt->bindParam(':token', $verificationCode);
+    $stmt->bindParam(':picture', $picture);
+    $stmt->execute();
+    $query = $db->prepare("SELECT id FROM users WHERE email = :email");
+    $query->bindParam(':email', $email);
+    $query->execute();
+    $row = $query->fetch(PDO::FETCH_ASSOC);
+    $user_id = $row['id'];
+    $_SESSION["logged_in"] = true;
+    $_SESSION['id'] = $user_id;
+    header ('Location: home.php');
+}
 ?>
