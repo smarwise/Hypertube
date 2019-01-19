@@ -1,4 +1,8 @@
 <?PHP
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 $host = "localhost";
 $username = "root";
 $password = "codecrazy";
@@ -20,8 +24,9 @@ try{
 		email varchar(255) NOT NULL, 
 		password varchar(255) NOT NULL,
 		token text NOT NULL,
-		notifications varchar(255) NOT NULL,
-        verified int DEFAULT '0' NOT NULL)";
+        verified int DEFAULT '0' NOT NULL,
+		fb_id bigint DEFAULT '0' NOT NULL,
+		picture varchar(255) NOT NULL)";
     $db->exec($statement);
 }
 catch (PDOException $e) {

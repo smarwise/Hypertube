@@ -73,7 +73,7 @@ if ($_POST['email'] && $_POST['username'] && $_POST['password'] && $_POST['passw
 	if (mail($recipient_email, $subject, $body, $headers) )
 		echo "<div id='successMessage'>A verification email was sent to <b>" . $email . "</b>, please open your email inbox and click the given link so you can login.</div>";
 	$table = "users";
-	$sql = "INSERT INTO users (name, surname, email, username, password, notifications, token) VALUES (:first_name, :last_name, :email, :username, :passwd, :noti, :token)";
+	$sql = "INSERT INTO users (name, surname, email, username, password, token) VALUES (:first_name, :last_name, :email, :username, :passwd, :token)";
 	$coolpwd = hash('whirlpool', $password);
 	$noti = "off";
     $stmt= $db->prepare($sql);
@@ -82,7 +82,6 @@ if ($_POST['email'] && $_POST['username'] && $_POST['password'] && $_POST['passw
 	$stmt->bindParam(':email', $email);
 	$stmt->bindParam(':username', $user);
 	$stmt->bindParam(':passwd', $coolpwd);
-	$stmt->bindParam(':noti', $noti);
 	$stmt->bindParam(':token', $verificationCode);
 	$stmt->execute();
 }
