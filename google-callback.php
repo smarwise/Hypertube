@@ -23,8 +23,8 @@ $first_name = $userinfo["givenName"];
 $last_name = $userinfo["familyName"];
 $picture = $userinfo["picture"];
 $email = $userinfo["email"];
-$password = "default";
 $verificationCode = "default";
+$password = "default";
 
 $query = $db->prepare("SELECT id FROM users WHERE email = :email");
 $query->bindParam(':email', $email);
