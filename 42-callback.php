@@ -57,9 +57,10 @@ if ($num > 0)
 }
 else
 {
-    $sql = "INSERT INTO users (name, surname, email, username, password, token, picture) VALUES (:first_name, :last_name, :email, :username, :passwd, :token, :picture)";
+    $sql = "INSERT INTO users (name, surname, email, username, password, token, picture, oauth) VALUES (:first_name, :last_name, :email, :username, :passwd, :token, :picture, :oauth)";
     $coolpwd = hash('whirlpool', $password);
     $code = rand(100000, 199999);
+    $oauth = 1;
 	$username = $first_name . $code;
     $stmt= $db->prepare($sql);
     $stmt->bindParam(':first_name', $first_name);
@@ -69,6 +70,7 @@ else
     $stmt->bindParam(':passwd', $coolpwd);
     $stmt->bindParam(':token', $verificationCode);
     $stmt->bindParam(':picture', $picture);
+    $stmt->bindParam(':oauth', $oauth);
     $stmt->execute();
     $query = $db->prepare("SELECT id FROM users WHERE email = :email");
     $query->bindParam(':email', $email);

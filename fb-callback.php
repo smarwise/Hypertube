@@ -41,10 +41,11 @@ if ($num > 0)
 }
 else
 {
-    $sql = "INSERT INTO users (name, surname, email, username, password, token, fb_id, picture) VALUES (:first_name, :last_name, :email, :username, :passwd, :token, :fb_id, :picture)";
+    $sql = "INSERT INTO users (name, surname, email, username, password, token, fb_id, picture, oauth) VALUES (:first_name, :last_name, :email, :username, :passwd, :token, :fb_id, :picture, :oauth)";
     $coolpwd = hash('whirlpool', $password);
     $code = rand(100000, 199999);;
-	$username = "default" . $code;
+    $username = "default" . $code;
+    $oauth = 1;
     $stmt= $db->prepare($sql);
     $stmt->bindParam(':first_name', $first_name);
     $stmt->bindParam('last_name', $last_name);
@@ -54,6 +55,7 @@ else
     $stmt->bindParam(':token', $verificationCode);
     $stmt->bindParam(':fb_id', $fb_id);
     $stmt->bindParam(':picture', $picture);
+    $stmt->bindParam(':oauth', $oauth);
     $stmt->execute();
     $query = $db->prepare("SELECT id FROM users WHERE fb_id = :fb");
     $query->bindParam(':fb', $fb_id);

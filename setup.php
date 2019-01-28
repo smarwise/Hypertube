@@ -26,6 +26,7 @@ try{
 		token text NOT NULL,
         verified int DEFAULT '0' NOT NULL,
 		fb_id bigint DEFAULT '0' NOT NULL,
+		oauth int DEFAULT '0' NOT NULL,
 		picture varchar(255) NOT NULL)";
     $db->exec($statement);
 }
