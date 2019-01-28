@@ -59,11 +59,13 @@ else
 {
     $sql = "INSERT INTO users (name, surname, email, username, password, token, picture) VALUES (:first_name, :last_name, :email, :username, :passwd, :token, :picture)";
     $coolpwd = hash('whirlpool', $password);
+    $code = rand(100000, 199999);
+	$username = $first_name . $code;
     $stmt= $db->prepare($sql);
     $stmt->bindParam(':first_name', $first_name);
     $stmt->bindParam('last_name', $last_name);
     $stmt->bindParam(':email', $email);
-    $stmt->bindParam(':username', $first_name);
+    $stmt->bindParam(':username', $username);
     $stmt->bindParam(':passwd', $coolpwd);
     $stmt->bindParam(':token', $verificationCode);
     $stmt->bindParam(':picture', $picture);
