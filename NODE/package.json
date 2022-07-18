@@ -17,7 +17,7 @@
     "cloudscraper": "^2.0.0",
     "cors": "^2.8.5",
     "download": "^7.1.0",
-    "ejs": "^2.6.1",
+    "ejs": "^3.1.7",
     "events": "^3.0.0",
     "express": "^4.16.4",
     "extratorrent-api": "^1.1.4",
